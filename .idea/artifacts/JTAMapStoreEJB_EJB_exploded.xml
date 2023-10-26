@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ejb" name="JTAMapStoreEJB:EJB exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/JTAMapStoreEJB_EJB_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="JTAMapStoreEJB/ejb/EJB" />
+      <element id="module-output" name="JTAMapStoreEJB" />
+    </root>
+  </artifact>
+</component>

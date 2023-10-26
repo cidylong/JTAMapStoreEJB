@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1698356100714
+Bundle-ManifestVersion: 2
+Bundle-Name: JTAMapStoreEJB-1.0
+Bundle-SymbolicName: com.longz.thss.test.JTAMapStoreEJB
+Bundle-Version: 1.0.0
+Created-By: 17.0.6 (Oracle Corporation)
+Import-Package: com.hazelcast.cluster;version="[5.3,6)",com.hazelcast.
+ core;version="[5.3,6)",com.hazelcast.logging;version="[5.3,6)",com.ha
+ zelcast.map;version="[5.3,6)",com.hazelcast.nio;version="[5.3,6)",com
+ .hazelcast.nio.serialization;version="[5.3,6)",com.hazelcast.query;ve
+ rsion="[5.3,6)",jakarta.annotation;version="[2.1,3)",jakarta.ejb;vers
+ ion="[4.0,5)",jakarta.enterprise.context;version="[4.0,5)",jakarta.en
+ terprise.inject;version="[4.0,5)",jakarta.inject;version="[2.0,3)",ja
+ karta.persistence;version="[3.1,4)",java.io,java.lang,java.lang.invok
+ e,java.time,java.util,java.util.function,javax.naming
+Private-Package: com.longz.thss.test.jtamapstoreejb.abst,com.longz.ths
+ s.test.jtamapstoreejb.bean,com.longz.thss.test.jtamapstoreejb.entity,
+ com.longz.thss.test.jtamapstoreejb.factory,com.longz.thss.test.jtamap
+ storeejb.schedule,com.longz.thss.test.jtamapstoreejb.store,com.longz.
+ thss.test.jtamapstoreejb.utils,sql
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=17))"
+Sling-Initial-Content: SLING-INF/app-root;overwrite:=true;ignoreImport
+ Providers:=xml;path:=/apps/wcm-io/wcm/commons
+Sling-Model-Packages: io.wcm.wcm.commons
+Sling-Namespaces: wcmio=http://wcm.io/ns
+Tool: Bnd-6.4.0.202211291949
+
