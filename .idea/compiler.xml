@@ -6,13 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="JTAMapStoreEJB" />
+        <module name="JTALibJar" />
+        <module name="JTAScheduleEJB" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="JTALibJar" options="-endorseddirs $PROJECT_DIR$/JTALibJar/target/endorsed" />
       <module name="JTAMapStoreEJB" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
+      <module name="JTAScheduleEJB" options="-endorseddirs $PROJECT_DIR$/JTAScheduleEJB/target/endorsed" />
     </option>
   </component>
 </project>

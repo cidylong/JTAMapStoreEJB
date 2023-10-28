@@ -5,9 +5,13 @@
     <groupId>com.longz.thss.test</groupId>
     <artifactId>JTAMapStoreEJB</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <name>JTAMapStoreEJB-1.0</name>
-    
+    <modules>
+        <module>JTALibJar</module>
+        <module>JTAScheduleEJB</module>
+    </modules>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -21,45 +25,6 @@
         <jakarta.persistence-api.version>3.1.0</jakarta.persistence-api.version>
         <eclipselink.version>4.0.1</eclipselink.version>
     </properties>
-    
-    <dependencies>
-        <dependency>
-            <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast</artifactId>
-            <version>${hazelcast.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>${jakartaee}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.enterprise</groupId>
-            <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${jakarta.enterprise.cdi-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>${jakarta.persistence-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.ejb</groupId>
-            <artifactId>jakarta.ejb-api</artifactId>
-            <version>${jakarta.ejb-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>${eclipselink.version}</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
     
     <build>
         <plugins>

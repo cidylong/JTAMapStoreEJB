@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class Utils {
     private static final ILogger logger = Logger.getLogger(Utils.class.getName());
+    public static final String NEW_LINE = System.lineSeparator();
     public static HazelcastInstance fetchHzInstanceFromContext(){
         HazelcastInstance hazelcastInstance =null;
         try {

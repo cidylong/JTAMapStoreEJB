@@ -1,8 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-ejb" name="JTAMapStoreEJB:EJB exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/JTAMapStoreEJB_EJB_exploded</output-path>
+  <artifact type="exploded-ejb" name="JTAScheduleEJB:EJB exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/JTAScheduleEJB_EJB_exploded</output-path>
     <root id="root">
-      <element id="module-output" name="JTAMapStoreEJB" />
       <element id="javaee-facet-resources" facet="JTAScheduleEJB/ejb/EJB" />
       <element id="module-output" name="JTAScheduleEJB" />
     </root>

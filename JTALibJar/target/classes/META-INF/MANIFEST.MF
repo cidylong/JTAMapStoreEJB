@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1698464587475
+Bundle-ManifestVersion: 2
+Bundle-Name: JTALibJar
+Bundle-SymbolicName: com.longz.thss.test.lib.jta.JTALibJar
+Bundle-Version: 1.0.0
+Created-By: 17.0.6 (Oracle Corporation)
+Export-Package: com.longz.thss.test.jtamapstoreejb.abst;uses:="com.haz
+ elcast.core,com.hazelcast.map";version="1.0.0",com.longz.thss.test.jt
+ amapstoreejb.bean;uses:="com.longz.thss.test.jtamapstoreejb.abst,com.
+ longz.thss.test.jtamapstoreejb.entity,jakarta.enterprise.context,jaka
+ rta.enterprise.inject,jakarta.inject";version="1.0.0",com.longz.thss.
+ test.jtamapstoreejb.entity;uses:="com.hazelcast.nio,com.hazelcast.nio
+ .serialization,jakarta.persistence";version="1.0.0",com.longz.thss.te
+ st.jtamapstoreejb.factory;uses:="com.hazelcast.nio.serialization";ver
+ sion="1.0.0",com.longz.thss.test.jtamapstoreejb.store;uses:="com.haze
+ lcast.core,com.hazelcast.map,com.longz.thss.test.jtamapstoreejb.entit
+ y";version="1.0.0",com.longz.thss.test.jtamapstoreejb.utils;uses:="co
+ m.hazelcast.core";version="1.0.0"
+Import-Package: com.hazelcast.cluster;version="[5.3,6)",com.hazelcast.
+ core;version="[5.3,6)",com.hazelcast.logging;version="[5.3,6)",com.ha
+ zelcast.map;version="[5.3,6)",com.hazelcast.nio;version="[5.3,6)",com
+ .hazelcast.nio.serialization;version="[5.3,6)",com.hazelcast.query;ve
+ rsion="[5.3,6)",com.longz.thss.test.jtamapstoreejb.abst,com.longz.ths
+ s.test.jtamapstoreejb.entity,com.longz.thss.test.jtamapstoreejb.store
+ ,com.longz.thss.test.jtamapstoreejb.utils,jakarta.enterprise.context;
+ version="[4.0,5)",jakarta.enterprise.inject;version="[4.0,5)",jakarta
+ .inject;version="[2.0,3)",jakarta.persistence;version="[3.1,4)",java.
+ io,java.lang,java.lang.invoke,java.time,java.util,java.util.function,
+ javax.naming
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=17))"
+Sling-Initial-Content: SLING-INF/app-root;overwrite:=true;ignoreImport
+ Providers:=xml;path:=/apps/wcm-io/wcm/commons
+Sling-Model-Packages: io.wcm.wcm.commons
+Sling-Namespaces: wcmio=http://wcm.io/ns
+Tool: Bnd-6.4.0.202211291949
+

@@ -11,11 +11,95 @@
 
     <groupId>com.longz.thss.test.lib.jta</groupId>
     <artifactId>JTALibJar</artifactId>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>${hazelcast.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${jakartaee}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>${jakarta.enterprise.cdi-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>${jakarta.persistence-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>${eclipselink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <compilerArgs>
+                        <!--<endorseddirs>${endorsed.dir}</endorseddirs>-->
+                        <arg>-verbose</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
+                <version>6.4.0</version>
+                <executions>
+                    <execution>
+                        <id>bnd-process</id>
+                        <goals>
+                            <goal>bnd-process</goal>
+                        </goals>
+                        <configuration>
+                            <bnd><![CDATA[
+                    Sling-Initial-Content: SLING-INF/app-root;overwrite:=true;ignoreImportProviders:=xml;path:=/apps/wcm-io/wcm/commons
+                    Sling-Model-Packages: io.wcm.wcm.commons
+                    Sling-Namespaces: wcmio=http://wcm.io/ns
 
+                    Bundle-SymbolicName: ${project.groupId}.${project.artifactId}
+
+                    Import-Package: *
+                    Export-Package: !*.impl.*,!*.internal.*,\
+                        com.longz.thss.test.jtamapstoreejb.*
+                    ]]>
+                            </bnd>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

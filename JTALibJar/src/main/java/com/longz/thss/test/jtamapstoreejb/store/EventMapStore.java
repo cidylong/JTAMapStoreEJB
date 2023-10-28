@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-import static jdk.vm.ci.code.CodeUtil.NEW_LINE;
+import static com.longz.thss.test.jtamapstoreejb.utils.Utils.NEW_LINE;
 
 public class EventMapStore implements MapStore<String, Event>, MapLoaderLifecycleSupport, Serializable {
     private static final ILogger logger = Logger.getLogger(EventMapStore.class.getName());
