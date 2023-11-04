@@ -29,6 +29,13 @@ Read the online docs:
 9. upload hazelcast-config.xml to $PAYARA_DOMAIN/config directory and restart domain
 10. Check console log and database to verify it
 
+## R&D environments
+
+1. Operating system: Rocky Linux 9.2
+2. Oracle JDK 17.0.7
+3. PostgreSQL 15
+4. Payara Community 6.2023.10 (jakarta EE 10 and Hazelcast 5.3)
+
 ## Reference
 
 * [Jakarta EE 10 Sandbox](https://github.com/hantsy/jakartaee10-sandbox)
