@@ -7,8 +7,13 @@ import com.hazelcast.map.MapLoaderLifecycleSupport;
 import com.hazelcast.map.MapStore;
 import com.longz.thss.test.jtamapstoreejb.entity.Event;
 import jakarta.persistence.*;
+import org.eclipse.persistence.sessions.Session;
+import org.eclipse.persistence.sessions.factories.SessionFactory;
 
+import javax.sql.DataSource;
+import javax.sql.XADataSource;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.util.*;
 
 import static com.longz.thss.test.jtamapstoreejb.utils.Utils.NEW_LINE;
@@ -22,13 +27,37 @@ public class EventMapStore implements MapStore<String, Event>, MapLoaderLifecycl
     private EntityManager em;
     @Override
     public void init(HazelcastInstance hazelcastInstance, Properties properties, String s) {
+        final Map<String, String> overridingProps = new HashMap<>();
+        overridingProps.put("jakarta.persistence.provider","org.eclipse.persistence.jpa.PersistenceProvider");
+        overridingProps.put("jakarta.persistence.transactionType","JTA");
+        overridingProps.put("jakarta.persistence.jtaDataSource","jdbc/PG15_ozssc_150");
         logger.info( "Init EventMapStore");
         if(emf == null){
-            emf = Persistence.createEntityManagerFactory(PU_NAME);
+            emf = Persistence.createEntityManagerFactory(PU_NAME, overridingProps);
+            /*emf = Persistence.createEntityManagerFactory(PU_NAME);*/
+            logger.info("Entity manager factory is created by Persistence from given PU name");
+            /*emf = Persistence.createEntityManagerFactory(PU_NAME);*/
+        }else {
+            logger.info(PU_NAME+" is injected into "+this.getClass().getName()+" Entity Manager Factory"+NEW_LINE);
         }
+        logger.info("PU name: "+emf.getPersistenceUnitUtil().getClass().getName());
+        Map<String, Object> prop = emf.getProperties();
+        logger.info("entity manager factory properties map size: "+prop.size()+NEW_LINE);
+        for (Map.Entry<String,Object> entry : prop.entrySet())
+            logger.info("Key = " + entry.getKey() + ", Value = " + entry.getValue().toString()+NEW_LINE);
+
         if(em == null){
             em = emf.createEntityManager();
+            logger.info("Entity manager is created from entity manager(just created.).");
+        }else {
+            logger.info(PU_NAME+" is injected into "+this.getClass().getName()+" Entity Manager"+NEW_LINE);
         }
+        logger.info("JTADataSource:"+em.getEntityManagerFactory().getProperties().get( "jakarta.persistence.jtaDataSource" ).toString());
+        /*logger.info("NoneJTADataSource:"+em.getEntityManagerFactory().getProperties().get( "jakarta.persistence.nonJtaDataSource" ).toString());*/
+        /*EntityTransaction entityTransaction = em.getTransaction();
+        logger.info(entityTransaction.toString()+NEW_LINE);*/
+        /*Session session = em.unwrap(Session.class);
+        Connection conn = (Connection) em.unwrap(java.sql.Connection.class);*/
     }
     @Override
     public void destroy() {
