@@ -1,4 +1,5 @@
 com/longz/thss/test/jtamapstoreejb/entity/Event.class
+com/longz/thss/test/jtamapstoreejb/store/ThssXADataSourceProducer.class
 com/longz/thss/test/jtamapstoreejb/factory/EventDataSerializableFactory.class
 com/longz/thss/test/jtamapstoreejb/bean/EventBean.class
 com/longz/thss/test/jtamapstoreejb/store/EventMapStore.class

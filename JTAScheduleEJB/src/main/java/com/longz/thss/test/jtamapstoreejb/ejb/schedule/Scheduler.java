@@ -5,15 +5,13 @@ import com.hazelcast.logging.Logger;
 import com.longz.thss.test.jtamapstoreejb.bean.EventBean;
 import com.longz.thss.test.jtamapstoreejb.entity.Event;
 import jakarta.annotation.PostConstruct;
-import jakarta.ejb.Schedule;
-import jakarta.ejb.Singleton;
-import jakarta.ejb.Startup;
-import jakarta.ejb.Stateless;
+import jakarta.ejb.*;
 
 import java.time.LocalDateTime;
 @Singleton
 /*@Stateless*/
 @Startup
+@DependsOn("thssXADataSourceProducer")
 public class Scheduler {
     private final ILogger logger = Logger.getLogger(this.getClass().getName());
     private EventBean eventBean;

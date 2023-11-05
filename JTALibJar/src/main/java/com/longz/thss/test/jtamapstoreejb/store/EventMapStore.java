@@ -6,10 +6,14 @@ import com.hazelcast.logging.Logger;
 import com.hazelcast.map.MapLoaderLifecycleSupport;
 import com.hazelcast.map.MapStore;
 import com.longz.thss.test.jtamapstoreejb.entity.Event;
+import jakarta.annotation.Resource;
+import jakarta.annotation.sql.DataSourceDefinition;
+import jakarta.inject.Inject;
 import jakarta.persistence.*;
 import org.eclipse.persistence.sessions.Session;
 import org.eclipse.persistence.sessions.factories.SessionFactory;
 
+import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import javax.sql.XADataSource;
 import java.io.Serializable;
@@ -20,11 +24,16 @@ import static com.longz.thss.test.jtamapstoreejb.utils.Utils.NEW_LINE;
 
 public class EventMapStore implements MapStore<String, Event>, MapLoaderLifecycleSupport, Serializable {
     private static final ILogger logger = Logger.getLogger(EventMapStore.class.getName());
+    private static final String DATA_SOURCE = "jdbc/PG15_ozssc_150";
+    private static final String XA_DATASOURCE = "java:global/jdbc/xaDataSource";
     private static final String PU_NAME = "PG15_OZSSC_JTAPU";
     @PersistenceUnit(unitName = PU_NAME)
     private EntityManagerFactory emf;
     @PersistenceContext(unitName = PU_NAME)
     private EntityManager em;
+    @Resource(lookup=DATA_SOURCE)
+    private EntityManager entityManager;
+    @Inject ThssXADataSourceProducer ds;
     @Override
     public void init(HazelcastInstance hazelcastInstance, Properties properties, String s) {
         final Map<String, String> overridingProps = new HashMap<>();
@@ -32,7 +41,18 @@ public class EventMapStore implements MapStore<String, Event>, MapLoaderLifecycl
         overridingProps.put("jakarta.persistence.transactionType","JTA");
         overridingProps.put("jakarta.persistence.jtaDataSource","jdbc/PG15_ozssc_150");
         logger.info( "Init EventMapStore");
+        if(ds!=null){
+            logger.info("XADataSource @inject-ed: "+ds.getDatasource().getClass().getName());
+        }else{
+            logger.info("XADataSource not @inject");
+        }
+        if(entityManager!= null) {
+            logger.info("EM by @Resource injection: " + entityManager.toString());
+        }else {
+            logger.info("EM inject by using @Resource annotation not work.");
+        }
         if(emf == null){
+            logger.info("Entity manager factory inject by @PersistenceUnit(unitName = PU_NAME) not work. Have to create by Persistence");
             emf = Persistence.createEntityManagerFactory(PU_NAME, overridingProps);
             /*emf = Persistence.createEntityManagerFactory(PU_NAME);*/
             logger.info("Entity manager factory is created by Persistence from given PU name");
@@ -47,7 +67,7 @@ public class EventMapStore implements MapStore<String, Event>, MapLoaderLifecycl
             logger.info("Key = " + entry.getKey() + ", Value = " + entry.getValue().toString()+NEW_LINE);
 
         if(em == null){
-            em = emf.createEntityManager();
+            em = emf.createEntityManager(SynchronizationType.SYNCHRONIZED);
             logger.info("Entity manager is created from entity manager(just created.).");
         }else {
             logger.info(PU_NAME+" is injected into "+this.getClass().getName()+" Entity Manager"+NEW_LINE);
@@ -58,6 +78,23 @@ public class EventMapStore implements MapStore<String, Event>, MapLoaderLifecycl
         logger.info(entityTransaction.toString()+NEW_LINE);*/
         /*Session session = em.unwrap(Session.class);
         Connection conn = (Connection) em.unwrap(java.sql.Connection.class);*/
+        try {
+            InitialContext  namingContext=new InitialContext();
+            XADataSource xaDataSource = (XADataSource) namingContext.lookup(DATA_SOURCE);
+            logger.info("DataSource class name by lookup from context: "+xaDataSource.getClass().getName());
+            /*XADataSource xads =(XADataSource)namingContext.lookup(DATA_SOURCE);
+            if(xads instanceof XADataSource){
+                logger.info("XADataSource lookup from context successfully.");
+            }
+            final java.sql.Connection con;
+            boolean usingDataSource=false;
+            boolean isXADataSource=false;
+            con= (Connection) ds.getXAConnection();*/
+            /*ds.unwrap(javax.sql.XADataSource.class);
+            isXADataSource=true;*/
+        } catch (Exception e) {
+            logger.info("DataSource lookup from context exception caught. " + e.toString());
+        }
     }
     @Override
     public void destroy() {
