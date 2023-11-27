@@ -8,6 +8,7 @@ import com.hazelcast.map.MapStore;
 import com.longz.thss.test.jtamapstoreejb.entity.Event;
 import jakarta.annotation.Resource;
 import jakarta.annotation.sql.DataSourceDefinition;
+import jakarta.ejb.TimerService;
 import jakarta.inject.Inject;
 import jakarta.persistence.*;
 import org.eclipse.persistence.sessions.Session;
@@ -34,6 +35,8 @@ public class EventMapStore implements MapStore<String, Event>, MapLoaderLifecycl
     @Resource(lookup=DATA_SOURCE)
     private EntityManager entityManager;
     @Inject ThssXADataSourceProducer ds;
+    /*@Resource
+    private TimerService timerService;*/
     @Override
     public void init(HazelcastInstance hazelcastInstance, Properties properties, String s) {
         final Map<String, String> overridingProps = new HashMap<>();
